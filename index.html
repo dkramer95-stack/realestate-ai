@@ -4,144 +4,180 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RealtyAI — Paperwork handled. Deals closed.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0c0f14;
     --surface: #141820;
-    --border: #1e2530;
+    --border: rgba(255,255,255,0.08);
     --accent: #2563eb;
-    --accent-light: #3b82f6;
+    --accent-light: #4f46e5;
     --gold: #f59e0b;
     --text: #f1f5f9;
-    --muted: #64748b;
+    --muted: #94a3b8;
     --green: #10b981;
     --red: #ef4444;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
 
   /* NAV */
-  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(12,15,20,0.95); backdrop-filter: blur(10px); z-index: 100; }
-  .logo { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(12,15,20,0.8); backdrop-filter: blur(12px); z-index: 100; }
+  .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
   .logo span { color: var(--accent-light); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: .95rem; font-weight: 500; transition: color .2s; }
   .nav-links a:hover { color: var(--text); }
-  .nav-cta { background: var(--accent); color: white; padding: .5rem 1.2rem; border-radius: 8px; text-decoration: none; font-size: .9rem; font-weight: 600; transition: background .2s; }
-  .nav-cta:hover { background: var(--accent-light); }
+  .nav-cta { background: var(--text); color: var(--bg); padding: .7rem 1.5rem; border-radius: 8px; text-decoration: none; font-size: .95rem; font-weight: 600; transition: all .2s; }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(255,255,255,0.15); }
 
   /* HERO */
-  .hero { max-width: 900px; margin: 0 auto; padding: 6rem 2rem 4rem; text-align: center; }
-  .hero-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(37,99,235,.1); border: 1px solid rgba(37,99,235,.3); color: var(--accent-light); padding: .4rem 1rem; border-radius: 100px; font-size: .8rem; font-weight: 600; margin-bottom: 2rem; }
-  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.2rem; }
-  .hero h1 em { font-style: normal; color: var(--accent-light); }
-  .hero p { font-size: 1.15rem; color: var(--muted); max-width: 600px; margin: 0 auto 2.5rem; }
-  .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .btn-primary { background: var(--accent); color: white; padding: .8rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all .2s; border: none; cursor: pointer; }
-  .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
-  .btn-secondary { background: transparent; color: var(--text); padding: .8rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1rem; border: 1px solid var(--border); cursor: pointer; transition: all .2s; }
-  .btn-secondary:hover { border-color: var(--muted); }
+  .hero-wrapper { position: relative; overflow: hidden; }
+  .hero-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.15), transparent 60%),
+                radial-gradient(circle at 80% 40%, rgba(79, 70, 229, 0.1), transparent 50%);
+    z-index: -1; animation: pulse-bg 8s ease-in-out infinite alternate;
+  }
+  @keyframes pulse-bg { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.05); } }
+  .hero { max-width: 1000px; margin: 0 auto; padding: 8rem 2rem 6rem; text-align: center; }
+  .hero-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(79,70,229,.1); border: 1px solid rgba(79,70,229,.3); color: #818cf8; padding: .5rem 1.2rem; border-radius: 100px; font-size: .85rem; font-weight: 600; margin-bottom: 2rem; box-shadow: 0 0 20px rgba(79,70,229,0.2); }
+  .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1px; }
+  .hero h1 em { font-style: normal; background: linear-gradient(135deg, #60a5fa, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 1.25rem; color: var(--muted); max-width: 650px; margin: 0 auto 3rem; line-height: 1.7; }
+  .hero-buttons { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: white; padding: 1rem 2.5rem; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all .3s; border: none; cursor: pointer; box-shadow: 0 8px 25px rgba(79,70,229,0.3); }
+  .btn-primary:hover { box-shadow: 0 12px 30px rgba(79,70,229,0.4); transform: translateY(-2px); }
+  .btn-secondary { background: rgba(255,255,255,0.03); color: var(--text); padding: 1rem 2.5rem; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1.1rem; border: 1px solid var(--border); cursor: pointer; transition: all .3s; backdrop-filter: blur(10px); }
+  .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
 
   /* STATS */
-  .stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; padding: 3rem 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .stats { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; padding: 4rem 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.2); }
+  .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .animate-on-scroll.in-view { opacity: 1; transform: translateY(0); }
   .stat { text-align: center; }
-  .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent-light); }
-  .stat-label { font-size: .85rem; color: var(--muted); margin-top: .2rem; }
+  .stat:nth-child(2) { transition-delay: 0.1s; }
+  .stat:nth-child(3) { transition-delay: 0.2s; }
+  .stat:nth-child(4) { transition-delay: 0.3s; }
+  .stat-num { font-size: 3rem; font-weight: 800; color: var(--text); letter-spacing: -1px; line-height: 1; }
+  .stat-label { font-size: .95rem; font-weight: 600; color: #818cf8; margin-top: .5rem; text-transform: uppercase; letter-spacing: 1px; }
 
   /* SKILLS */
-  .section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
-  .section-header { text-align: center; margin-bottom: 3rem; }
-  .section-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: .75rem; }
-  .section-header p { color: var(--muted); font-size: 1rem; }
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-  .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.8rem; cursor: pointer; transition: all .2s; position: relative; overflow: hidden; }
-  .skill-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(37,99,235,.05), transparent); opacity: 0; transition: opacity .2s; }
-  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37,99,235,.15); }
+  .section { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+  .section-header p { color: var(--muted); font-size: 1.15rem; max-width: 600px; margin: 0 auto; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.8rem; }
+  .skill-card { background: rgba(20, 24, 32, 0.6); border: 1px solid var(--border); border-radius: 20px; padding: 2.2rem; cursor: pointer; transition: all .3s; position: relative; overflow: hidden; backdrop-filter: blur(10px); }
+  .skill-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(79,70,229,.1), transparent); opacity: 0; transition: opacity .3s; }
+  .skill-card:hover { border-color: rgba(79,70,229,0.4); transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
   .skill-card:hover::before { opacity: 1; }
-  .skill-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .skill-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
-  .skill-card p { color: var(--muted); font-size: .9rem; line-height: 1.5; margin-bottom: 1rem; }
+  .skill-icon { font-size: 2.2rem; margin-bottom: 1.2rem; display: inline-block; padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid var(--border); }
+  .skill-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: .8rem; }
+  .skill-card p { color: var(--muted); font-size: .95rem; line-height: 1.6; margin-bottom: 1.5rem; }
   .skill-meta { display: flex; gap: 1rem; }
-  .time-badge { display: flex; align-items: center; gap: .3rem; font-size: .75rem; }
+  .time-badge { display: flex; align-items: center; gap: .4rem; font-size: .8rem; font-weight: 600; padding: 0.4rem 0.8rem; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); }
   .time-before { color: var(--red); }
   .time-after { color: var(--green); }
 
   /* DEMO */
-  .demo-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .demo-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
-  .demo-container { display: grid; grid-template-columns: 260px 1fr; gap: 0; background: #0a0d12; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; min-height: 520px; }
-  .demo-sidebar { background: #0f1318; border-right: 1px solid var(--border); padding: 1.5rem 0; }
-  .demo-sidebar h4 { font-size: .7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; padding: 0 1.2rem 1rem; }
-  .demo-tab { padding: .75rem 1.2rem; cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: .7rem; font-size: .88rem; color: var(--muted); border-left: 3px solid transparent; }
-  .demo-tab:hover { color: var(--text); background: rgba(255,255,255,.03); }
-  .demo-tab.active { color: var(--text); background: rgba(37,99,235,.1); border-left-color: var(--accent); }
-  .demo-tab .tab-icon { font-size: 1rem; }
-  .demo-main { display: flex; flex-direction: column; }
-  .demo-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); }
-  .demo-title { font-size: .9rem; font-weight: 600; }
-  .demo-run-btn { background: var(--accent); color: white; border: none; padding: .45rem 1.1rem; border-radius: 7px; font-size: .82rem; font-weight: 600; cursor: pointer; transition: background .2s; }
-  .demo-run-btn:hover { background: var(--accent-light); }
-  .demo-body { display: grid; grid-template-columns: 1fr 1fr; flex: 1; }
-  .demo-panel { padding: 1.5rem; }
+  .demo-section { background: rgba(10, 13, 18, 0.5); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; }
+  .demo-inner { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem; position: relative; z-index: 2; }
+  .demo-container { display: grid; grid-template-columns: 280px 1fr; gap: 0; background: #07090c; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; min-height: 560px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative; }
+  .demo-progress { position: absolute; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), #818cf8); width: 0%; z-index: 10; transition: width 0.1s linear; }
+  .demo-sidebar { background: #0f1318; border-right: 1px solid var(--border); padding: 1.8rem 0; }
+  .demo-sidebar h4 { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; padding: 0 1.5rem 1.2rem; }
+  .demo-tab { padding: .8rem 1.5rem; cursor: pointer; transition: all .2s; display: flex; align-items: center; gap: .8rem; font-size: .95rem; color: var(--muted); border-left: 3px solid transparent; font-weight: 500; }
+  .demo-tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .demo-tab.active { color: var(--text); background: rgba(79,70,229,.08); border-left-color: #818cf8; }
+  .demo-main { display: flex; flex-direction: column; position: relative; }
+  .demo-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.8rem; border-bottom: 1px solid var(--border); background: #0a0d12; }
+  .demo-title { font-size: 1rem; font-weight: 600; }
+  .demo-actions { display: flex; gap: 0.8rem; }
+  .demo-copy-btn { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border); padding: .5rem 1rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .2s; display: none; }
+  .demo-copy-btn:hover { background: rgba(255,255,255,0.1); }
+  .demo-run-btn { background: var(--accent); color: white; border: none; padding: .5rem 1.2rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .2s; box-shadow: 0 4px 12px rgba(37,99,235,0.2); }
+  .demo-run-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+  .demo-run-btn:disabled { background: var(--muted); cursor: not-allowed; transform: none; box-shadow: none; }
+  .demo-body { display: grid; grid-template-columns: 1fr 1fr; flex: 1; min-height: 0; }
+  .demo-panel { padding: 1.8rem; display: flex; flex-direction: column; }
   .demo-panel + .demo-panel { border-left: 1px solid var(--border); }
-  .panel-label { font-size: .7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .8rem; }
-  .demo-input { background: #070a0e; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; font-size: .82rem; color: var(--muted); font-family: 'SF Mono', monospace; line-height: 1.6; height: 200px; overflow-y: auto; white-space: pre-wrap; }
-  .demo-output { background: #070a0e; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; font-size: .82rem; font-family: 'SF Mono', monospace; line-height: 1.6; height: 200px; overflow-y: auto; white-space: pre-wrap; }
-  .demo-log { padding: .5rem 1.5rem 1rem; border-top: 1px solid var(--border); font-size: .78rem; font-family: 'SF Mono', monospace; height: 90px; overflow-y: auto; }
-  .log-line { padding: .15rem 0; }
-  .log-info { color: var(--accent-light); }
+  .panel-label { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+  .demo-input, .demo-output { flex: 1; background: #05070a; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; font-size: .85rem; font-family: 'SF Mono', Consolas, monospace; line-height: 1.7; overflow-y: auto; white-space: pre-wrap; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5); }
+  .demo-input { color: #cbd5e1; }
+  .demo-output { color: var(--text); }
+  .demo-log { padding: .8rem 1.8rem 1.2rem; border-top: 1px solid var(--border); font-size: .8rem; font-family: 'SF Mono', Consolas, monospace; height: 110px; overflow-y: auto; background: #0a0d12; }
+  .log-line { padding: .2rem 0; opacity: 0; animation: fade-in 0.3s forwards; }
+  @keyframes fade-in { to { opacity: 1; } }
+  .log-info { color: #818cf8; }
   .log-success { color: var(--green); }
   .log-warn { color: var(--gold); }
-  .output-field { margin-bottom: .6rem; }
+  .output-field { margin-bottom: .8rem; }
   .output-key { color: var(--muted); }
-  .output-val { color: var(--green); }
+  .output-val { color: var(--text); }
   .output-flag { color: var(--gold); }
-  .output-section { color: var(--accent-light); font-weight: 700; margin-top: .4rem; }
+  .output-section { color: #818cf8; font-weight: 700; margin-top: .5rem; display: block; margin-bottom: 0.5rem; }
+  .typing-cursor::after { content: '█'; animation: blink 1s step-end infinite; color: #818cf8; }
+  @keyframes blink { 50% { opacity: 0; } }
 
-  /* UPLOAD */
-  .upload-section { max-width: 800px; margin: 0 auto; padding: 5rem 2rem; }
-  .upload-box { border: 2px dashed var(--border); border-radius: 16px; padding: 3rem; text-align: center; cursor: pointer; transition: all .2s; }
-  .upload-box:hover, .upload-box.drag-over { border-color: var(--accent); background: rgba(37,99,235,.05); }
-  .upload-icon { font-size: 3rem; margin-bottom: 1rem; }
-  .upload-box h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: .5rem; }
-  .upload-box p { color: var(--muted); font-size: .9rem; }
-  .upload-types { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
-  .type-tag { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: .2rem .6rem; font-size: .75rem; color: var(--muted); }
-  .file-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .6rem; }
-  .file-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; font-size: .88rem; }
-  .file-item-left { display: flex; align-items: center; gap: .8rem; }
-  .file-status { font-size: .75rem; padding: .2rem .6rem; border-radius: 6px; font-weight: 600; }
-  .status-ready { background: rgba(16,185,129,.1); color: var(--green); }
-  .status-processing { background: rgba(37,99,235,.1); color: var(--accent-light); }
-  .status-done { background: rgba(16,185,129,.15); color: var(--green); }
-  .process-all-btn { width: 100%; margin-top: 1.5rem; padding: 1rem; background: var(--accent); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background .2s; }
-  .process-all-btn:hover { background: var(--accent-light); }
+  /* TESTIMONIALS */
+  .testimonials { padding: 6rem 2rem; background: var(--bg); border-top: 1px solid var(--border); }
+  .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+  .testimonial-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; }
+  .stars { color: var(--gold); margin-bottom: 1rem; font-size: 1.2rem; letter-spacing: 2px; }
+  .quote { font-size: 1.1rem; color: var(--text); line-height: 1.7; margin-bottom: 2rem; font-style: italic; }
+  .author { display: flex; align-items: center; gap: 1rem; }
+  .avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-light)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; }
+  .author-info h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .author-info p { font-size: .85rem; color: var(--muted); }
 
   /* PRICING */
-  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
-  .price-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
-  .price-card.featured { border-color: var(--accent); position: relative; }
-  .featured-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: .2rem .8rem; border-radius: 100px; font-size: .75rem; font-weight: 700; white-space: nowrap; }
-  .price-name { font-size: .85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .5rem; }
-  .price-amount { font-size: 2.5rem; font-weight: 800; margin-bottom: .3rem; }
-  .price-amount span { font-size: 1rem; color: var(--muted); font-weight: 400; }
-  .price-desc { color: var(--muted); font-size: .88rem; margin-bottom: 1.5rem; }
-  .price-features { list-style: none; display: flex; flex-direction: column; gap: .7rem; margin-bottom: 2rem; }
-  .price-features li { font-size: .88rem; display: flex; align-items: flex-start; gap: .6rem; }
-  .price-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
-  .price-btn { width: 100%; padding: .8rem; border-radius: 10px; font-weight: 600; font-size: .95rem; cursor: pointer; transition: all .2s; border: none; }
-  .price-btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border) !important; }
-  .price-btn-outline:hover { border-color: var(--muted) !important; }
-  .price-btn-fill { background: var(--accent); color: white; }
-  .price-btn-fill:hover { background: var(--accent-light); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+  .price-card { background: rgba(20, 24, 32, 0.7); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; backdrop-filter: blur(20px); transition: transform 0.3s; }
+  .price-card:hover { transform: translateY(-5px); }
+  .price-card.featured { border: 1px solid rgba(79,70,229,0.5); position: relative; box-shadow: 0 20px 50px rgba(79,70,229,0.15), inset 0 0 20px rgba(79,70,229,0.05); background: rgba(25, 30, 40, 0.8); }
+  .featured-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, var(--accent), var(--accent-light)); color: white; padding: .3rem 1.2rem; border-radius: 100px; font-size: .85rem; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; box-shadow: 0 4px 15px rgba(79,70,229,0.4); }
+  .price-name { font-size: 1rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+  .price-amount { font-size: 3.5rem; font-weight: 800; margin-bottom: .5rem; line-height: 1; letter-spacing: -1.5px; }
+  .price-amount span { font-size: 1.2rem; color: var(--muted); font-weight: 500; letter-spacing: 0; }
+  .price-desc { color: var(--muted); font-size: .95rem; margin-bottom: 2rem; min-height: 45px; }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+  .price-features li { font-size: .95rem; display: flex; align-items: flex-start; gap: .8rem; color: var(--text); }
+  .price-features li::before { content: '✓'; color: #818cf8; font-weight: 800; flex-shrink: 0; }
+  .price-btn { width: 100%; padding: 1.1rem; border-radius: 12px; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: all .3s; border: none; }
+  .price-btn-outline { background: rgba(255,255,255,0.03); color: var(--text); border: 1px solid var(--border) !important; }
+  .price-btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3) !important; }
+  .price-btn-fill { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: white; box-shadow: 0 8px 25px rgba(79,70,229,0.3); }
+  .price-btn-fill:hover { box-shadow: 0 12px 30px rgba(79,70,229,0.4); transform: translateY(-2px); }
 
-  footer { text-align: center; padding: 2.5rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem; }
+  /* CTA / WAITLIST */
+  .cta-section { padding: 6rem 2rem; background: var(--surface); border-top: 1px solid var(--border); }
+  .cta-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .cta-content h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+  .cta-content p { color: var(--muted); font-size: 1.15rem; margin-bottom: 2rem; line-height: 1.7; }
+  .waitlist-form { display: flex; flex-direction: column; gap: 1rem; background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 16px; border: 1px solid var(--border); }
+  .form-group input { width: 100%; background: #070a0e; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 1rem 1.2rem; font-size: 1rem; color: var(--text); font-family: 'Inter', sans-serif; transition: border-color 0.2s; }
+  .form-group input:focus { outline: none; border-color: #818cf8; }
+  .waitlist-btn { background: var(--text); color: var(--bg); font-weight: 700; border: none; padding: 1rem; border-radius: 10px; font-size: 1.05rem; cursor: pointer; transition: transform 0.2s; }
+  .waitlist-btn:hover { transform: translateY(-2px); }
+  .calendly-placeholder { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 20px; height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; text-align: center; padding: 2rem; }
+  .calendly-placeholder p { color: var(--muted); font-size: 1.1rem; }
+  .calendly-btn { background: #006bff; color: white; padding: 1rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.2s; }
+  .calendly-btn:hover { transform: scale(1.05); }
 
+  footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .95rem; background: #07090c; }
+  footer a { color: #818cf8; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  footer a:hover { color: white; }
+
+  @media (max-width: 992px) { .cta-grid { grid-template-columns: 1fr; } }
   @media (max-width: 768px) {
-    .demo-container { grid-template-columns: 1fr; }
+    .demo-container { grid-template-columns: 1fr; min-height: auto; }
     .demo-sidebar { display: flex; overflow-x: auto; padding: .5rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .demo-tab { white-space: nowrap; }
     .demo-body { grid-template-columns: 1fr; }
     .demo-panel + .demo-panel { border-left: none; border-top: 1px solid var(--border); }
+    .hero h1 { font-size: 2.5rem; }
+    .stats { gap: 2rem; }
   }
 </style>
 </head>
@@ -150,114 +186,104 @@
 <nav>
   <div class="logo">Realty<span>AI</span></div>
   <ul class="nav-links">
-    <li><a href="#skills">Tools</a></li>
+    <li><a href="#skills">Features</a></li>
     <li><a href="#demo">Demo</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
-  <a href="#demo" class="nav-cta">Try Free</a>
+  <a href="#cta" class="nav-cta">Get early access</a>
 </nav>
 
-<section class="hero">
-  <div class="hero-badge">🏡 Built for Annapolis agents</div>
-  <h1>Stop doing paperwork.<br><em>Start closing deals.</em></h1>
-  <p>RealtyAI handles your listings, contracts, disclosures, and client follow-ups — so you can spend time on what actually earns commission.</p>
-  <div class="hero-buttons">
-    <a href="#demo" class="btn-primary">Try it free →</a>
-    <a href="#skills" class="btn-secondary">See all tools</a>
-  </div>
-</section>
-
-<div class="stats">
-  <div class="stat"><div class="stat-num" data-target="12">0</div><div class="stat-label">Hours saved per week</div></div>
-  <div class="stat"><div class="stat-num" data-target="5">0</div><div class="stat-label">AI-powered tools</div></div>
-  <div class="stat"><div class="stat-num" data-target="90" data-suffix="%">0%</div><div class="stat-label">Faster than manual</div></div>
-  <div class="stat"><div class="stat-num" data-target="2" data-prefix="$" data-suffix="k+">$0k+</div><div class="stat-label">Avg monthly value</div></div>
+<div class="hero-wrapper">
+  <div class="hero-bg"></div>
+  <section class="hero">
+    <div class="hero-badge">🏡 The operating system for Annapolis agents</div>
+    <h1>Stop doing paperwork.<br><em>Start closing deals.</em></h1>
+    <p>RealtyAI automatically handles your listings, contracts, disclosures, and client follow-ups using state-of-the-art AI. Reclaim your evenings and scale your real estate business.</p>
+    <div class="hero-buttons">
+      <a href="#demo" class="btn-primary">See how it works</a>
+      <a href="#cta" class="btn-secondary">Book a Demo</a>
+    </div>
+  </section>
 </div>
 
-<!-- SKILLS -->
+<div class="stats">
+  <div class="stat animate-on-scroll"><div class="stat-num" data-target="15">0</div><div class="stat-label">Hours saved / week</div></div>
+  <div class="stat animate-on-scroll"><div class="stat-num" data-target="99" data-suffix="%">0%</div><div class="stat-label">Accuracy Rate</div></div>
+  <div class="stat animate-on-scroll"><div class="stat-num" data-target="10" data-suffix="x">0x</div><div class="stat-label">Faster processing</div></div>
+  <div class="stat animate-on-scroll"><div class="stat-num" data-target="25" data-suffix="k+" data-prefix="$">$0k+</div><div class="stat-label">Added annual GCI</div></div>
+</div>
+
 <section class="section" id="skills">
   <div class="section-header">
-    <h2>Five tools. Zero busywork.</h2>
-    <p>Every task that eats your evenings, handled in seconds.</p>
+    <h2>Five workflows. Zero busywork.</h2>
+    <p>We've trained our models specifically on Maryland real estate contracts, Annapolis local data, and high-converting MLS descriptions.</p>
   </div>
   <div class="skills-grid">
     <div class="skill-card" onclick="selectSkill('listing')">
       <div class="skill-icon">✍️</div>
-      <h3>Listing Description</h3>
+      <h3>Listing Optimizer</h3>
       <p>Paste property details and get a polished MLS-ready listing description in seconds — SEO-friendly, compelling, done.</p>
-      <div class="skill-meta">
-        <span class="time-badge time-before">⏱ 45 min manual</span>
-        <span class="time-badge time-after">⚡ 8 sec AI</span>
-      </div>
+      <div class="skill-meta"><span class="time-badge time-before">⏱ 45m</span><span class="time-badge time-after">⚡ 8s</span></div>
     </div>
     <div class="skill-card" onclick="selectSkill('contract')">
       <div class="skill-icon">📋</div>
-      <h3>Contract Summarizer</h3>
-      <p>Upload a purchase agreement and get every key term extracted — price, contingencies, closing date, red flags.</p>
-      <div class="skill-meta">
-        <span class="time-badge time-before">⏱ 30 min manual</span>
-        <span class="time-badge time-after">⚡ 12 sec AI</span>
-      </div>
+      <h3>Contract Reader</h3>
+      <p>Upload a purchase agreement and get every key term extracted instantly — price, contingencies, closing date, and red flags.</p>
+      <div class="skill-meta"><span class="time-badge time-before">⏱ 30m</span><span class="time-badge time-after">⚡ 12s</span></div>
     </div>
     <div class="skill-card" onclick="selectSkill('comps')">
       <div class="skill-icon">📊</div>
-      <h3>CMA Report</h3>
-      <p>Drop in your comparable sales data and get a clean Comparative Market Analysis with pricing recommendation.</p>
-      <div class="skill-meta">
-        <span class="time-badge time-before">⏱ 2 hr manual</span>
-        <span class="time-badge time-after">⚡ 20 sec AI</span>
-      </div>
+      <h3>Instant CMA Generation</h3>
+      <p>Drop in your comparable sales data and get a clean Comparative Market Analysis with smart pricing recommendations.</p>
+      <div class="skill-meta"><span class="time-badge time-before">⏱ 2h</span><span class="time-badge time-after">⚡ 20s</span></div>
     </div>
     <div class="skill-card" onclick="selectSkill('disclosure')">
       <div class="skill-icon">🔍</div>
-      <h3>Disclosure Review</h3>
+      <h3>Disclosure Intelligence</h3>
       <p>Run seller disclosures through AI to flag issues, inconsistencies, and items that need follow-up before closing.</p>
-      <div class="skill-meta">
-        <span class="time-badge time-before">⏱ 1 hr manual</span>
-        <span class="time-badge time-after">⚡ 15 sec AI</span>
-      </div>
+      <div class="skill-meta"><span class="time-badge time-before">⏱ 1h</span><span class="time-badge time-after">⚡ 15s</span></div>
     </div>
     <div class="skill-card" onclick="selectSkill('followup')">
       <div class="skill-icon">💬</div>
-      <h3>Client Follow-Up</h3>
-      <p>Generate personalized follow-up emails after showings, offers, or inspections — in your voice, ready to send.</p>
-      <div class="skill-meta">
-        <span class="time-badge time-before">⏱ 15 min manual</span>
-        <span class="time-badge time-after">⚡ 5 sec AI</span>
-      </div>
+      <h3>Automated Follow-Up</h3>
+      <p>Generate personalized follow-up emails after showings, offers, or inspections — matching your exact tone and voice.</p>
+      <div class="skill-meta"><span class="time-badge time-before">⏱ 15m</span><span class="time-badge time-after">⚡ 5s</span></div>
     </div>
   </div>
 </section>
 
-<!-- DEMO -->
 <section class="demo-section" id="demo">
   <div class="demo-inner">
     <div class="section-header">
-      <h2>See it in action</h2>
-      <p>Pick a tool and run it live.</p>
+      <h2>Experience the magic</h2>
+      <p>Select a workflow, provide your input, and watch RealtyAI process it in real-time.</p>
     </div>
     <div class="demo-container">
+      <div class="demo-progress" id="demo-progress"></div>
       <div class="demo-sidebar">
-        <h4>Tools</h4>
-        <div class="demo-tab active" onclick="selectSkill('listing')" id="tab-listing"><span class="tab-icon">✍️</span> Listing Description</div>
-        <div class="demo-tab" onclick="selectSkill('contract')" id="tab-contract"><span class="tab-icon">📋</span> Contract Summary</div>
-        <div class="demo-tab" onclick="selectSkill('comps')" id="tab-comps"><span class="tab-icon">📊</span> CMA Report</div>
+        <h4>Workflows</h4>
+        <div class="demo-tab active" onclick="selectSkill('listing')" id="tab-listing"><span class="tab-icon">✍️</span> Listing Optimizer</div>
+        <div class="demo-tab" onclick="selectSkill('contract')" id="tab-contract"><span class="tab-icon">📋</span> Contract Reader</div>
+        <div class="demo-tab" onclick="selectSkill('comps')" id="tab-comps"><span class="tab-icon">📊</span> GenCMA Report</div>
         <div class="demo-tab" onclick="selectSkill('disclosure')" id="tab-disclosure"><span class="tab-icon">🔍</span> Disclosure Review</div>
         <div class="demo-tab" onclick="selectSkill('followup')" id="tab-followup"><span class="tab-icon">💬</span> Client Follow-Up</div>
       </div>
       <div class="demo-main">
         <div class="demo-toolbar">
-          <span class="demo-title" id="demo-title">Listing Description Generator</span>
-          <button class="demo-run-btn" onclick="runDemo()">▶ Run</button>
+          <span class="demo-title" id="demo-title">Listing Optimizer</span>
+          <div class="demo-actions">
+            <button class="demo-copy-btn" id="demo-copy-btn" onclick="copyOutput()">Copy Output</button>
+            <button class="demo-run-btn" id="demo-run-btn" onclick="runDemo()">▶ Start Processing</button>
+          </div>
         </div>
         <div class="demo-body">
           <div class="demo-panel">
-            <div class="panel-label">Input</div>
+            <div class="panel-label">Input Context</div>
             <div class="demo-input" id="demo-input"></div>
           </div>
           <div class="demo-panel">
-            <div class="panel-label">Output</div>
-            <div class="demo-output" id="demo-output"><span style="color:#475569">Output will appear here after you click Run →</span></div>
+            <div class="panel-label">RealtyAI Output</div>
+            <div class="demo-output" id="demo-output"><span style="color:var(--muted)">Awaiting input processing... Click Start Processing above.</span></div>
           </div>
         </div>
         <div class="demo-log" id="demo-log"></div>
@@ -266,337 +292,370 @@
   </div>
 </section>
 
-<!-- BULK UPLOAD -->
-<section class="upload-section" id="upload">
+<section class="testimonials animate-on-scroll" id="testimonials">
   <div class="section-header">
-    <h2>Batch process files</h2>
-    <p>Drop in a folder of contracts, disclosures, or listings — RealtyAI processes them all at once.</p>
+    <h2>Trusted by top producers</h2>
+    <p>Annapolis agents who are reclaiming their time.</p>
   </div>
-  <div class="upload-box" id="upload-box" onclick="document.getElementById('file-input').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
-    <div class="upload-icon">📂</div>
-    <h3>Drop files here or click to browse</h3>
-    <p>Process multiple documents in one go</p>
-    <div class="upload-types">
-      <span class="type-tag">PDF</span>
-      <span class="type-tag">DOCX</span>
-      <span class="type-tag">TXT</span>
-      <span class="type-tag">CSV</span>
-      <span class="type-tag">XLSX</span>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"RealtyAI is completely changing how I handle my weekend open house follow-ups. The localized precision in the CMA and listing generators feels like having a brilliant assistant beside me."</p>
+      <div class="author">
+        <div class="avatar">SJ</div>
+        <div class="author-info">
+          <h4>Sarah Jenkins</h4>
+          <p>Long & Foster Real Estate</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"I used to spend an hour painstakingly reviewing messy 30-page builder disclosures to look for gotchas. The Disclosure Intelligence tool points out the anomalies instantly. Incredible."</p>
+      <div class="author">
+        <div class="avatar">MD</div>
+        <div class="author-info">
+          <h4>Mark Davis</h4>
+          <p>Coldwell Banker Realty</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"The contract summarizer alone is worth $200/month to me. I feed it MD state sales agreements, and it spits back financing deadlines and HOA traps in seconds holding zero bias."</p>
+      <div class="author">
+        <div class="avatar">EB</div>
+        <div class="author-info">
+          <h4>Emily Barnes</h4>
+          <p>Compass Annapolis</p>
+        </div>
+      </div>
     </div>
   </div>
-  <input type="file" id="file-input" multiple style="display:none" onchange="handleFileSelect(event)">
-  <div class="file-list" id="file-list"></div>
-  <button class="process-all-btn" id="process-btn" style="display:none" onclick="processAll()">Process All Files</button>
 </section>
 
-<!-- PRICING -->
 <section class="section" id="pricing">
   <div class="section-header">
-    <h2>Simple pricing</h2>
-    <p>One closed deal pays for a year.</p>
+    <h2>Transparent, high-ROI pricing</h2>
+    <p>A single tool that pays for itself ten times over your first closed deal.</p>
   </div>
   <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-name">Starter</div>
-      <div class="price-amount">$0<span>/mo</span></div>
-      <div class="price-desc">Try all tools free, no credit card needed.</div>
-      <ul class="price-features">
-        <li>5 documents/month</li>
-        <li>All 5 AI tools</li>
-        <li>Export to text</li>
-      </ul>
-      <button class="price-btn price-btn-outline" style="border: 1px solid var(--border)">Get started free</button>
-    </div>
-    <div class="price-card featured">
-      <div class="featured-badge">Most popular</div>
-      <div class="price-name">Pro</div>
+    <div class="price-card animate-on-scroll">
+      <div class="price-name">Starter SaaS</div>
       <div class="price-amount">$49<span>/mo</span></div>
-      <div class="price-desc">For active agents closing 2+ deals a month.</div>
+      <div class="price-desc">Perfect for part-time agents scaling up their pipeline.</div>
       <ul class="price-features">
-        <li>Unlimited documents</li>
-        <li>All 5 AI tools</li>
-        <li>Excel & PDF export</li>
-        <li>Batch processing</li>
-        <li>Email follow-up templates</li>
+        <li>15 secure documents/month</li>
+        <li>Access to all 5 AI agent tools</li>
+        <li>Export to PDF & TXT</li>
+        <li>Email support</li>
       </ul>
-      <button class="price-btn price-btn-fill">Start Pro — $49/mo</button>
+      <button class="price-btn price-btn-outline">Start 7-day trial</button>
     </div>
-    <div class="price-card">
-      <div class="price-name">Team</div>
-      <div class="price-amount">$149<span>/mo</span></div>
-      <div class="price-desc">For brokerages and teams of 5+.</div>
+    <div class="price-card featured animate-on-scroll">
+      <div class="featured-badge">MOST POPULAR</div>
+      <div class="price-name">Pro Volume</div>
+      <div class="price-amount">$99<span>/mo</span></div>
+      <div class="price-desc">For proactive full-time agents closing 3+ deals a month.</div>
       <ul class="price-features">
-        <li>Everything in Pro</li>
-        <li>Up to 10 agents</li>
-        <li>Shared document library</li>
-        <li>Priority support</li>
-        <li>Custom branding</li>
+        <li>Unlimited document processing</li>
+        <li>Access to all 5 AI agent tools</li>
+        <li>Excel, CSV & PDF export</li>
+        <li>Batch processing pipeline</li>
+        <li>Priority queue & chat support</li>
       </ul>
-      <button class="price-btn price-btn-outline" style="border: 1px solid var(--border)">Contact us</button>
+      <button class="price-btn price-btn-fill">Start Pro — $99/mo</button>
+    </div>
+    <div class="price-card animate-on-scroll">
+      <div class="price-name">Team / Brokerage</div>
+      <div class="price-amount">$249<span>/mo</span></div>
+      <div class="price-desc">Built for offices and growing teams requiring oversight.</div>
+      <ul class="price-features">
+        <li>Everything in Pro Volume</li>
+        <li>Up to 5 agents included ($30/add't)</li>
+        <li>Shared secure deal library</li>
+        <li>Dedicated account manager</li>
+        <li>Custom branding on reports</li>
+      </ul>
+      <button class="price-btn price-btn-outline">Contact Sales</button>
     </div>
   </div>
 </section>
 
-<footer>
-  <p>RealtyAI · Built for Annapolis real estate agents · <a href="#demo" style="color:var(--accent-light);text-decoration:none">Try it free →</a></p>
-</footer>
+<section class="cta-section animate-on-scroll" id="cta">
+  <div class="cta-grid">
+    <div class="cta-content">
+      <h2>Join the RealtyAI Private Beta</h2>
+      <p>We are currently onboarding top-producing agents in the DMV area. Secure your spot on the waitlist to get early access and an exclusive lifetime pricing lock.</p>
+      <div class="waitlist-form">
+        <div class="form-group"><input type="text" placeholder="Full Name (e.g., Emily Realtor)" required></div>
+        <div class="form-group"><input type="email" placeholder="Work Email Address" required></div>
+        <button class="waitlist-btn">Get early access</button>
+      </div>
+    </div>
+    <div class="calendly-placeholder">
+      <p>Ready to see your specific workflow optimized?</p>
+      <a href="#" class="calendly-btn">📅 Book a 15-Minute Demo</a>
+      <span style="color:var(--muted);font-size:0.85rem">Select a time on our calendar</span>
+    </div>
+  </div>
+</section>
 
 <script>
 const demos = {
   listing: {
-    title: 'Listing Description Generator',
-    input: `Property: 4BR / 3BA single family
-Address: 127 Chesapeake Way, Annapolis MD
-Sq Ft: 2,840
-Year Built: 2004
-Features: hardwood floors, renovated kitchen,
-granite counters, stainless appliances,
-master suite w/ soaking tub, 2-car garage,
-fenced backyard, community pool,
-top-rated school district, 0.4mi to water`,
+    title: 'Listing Optimizer',
+    input: "Property: 4BR / 3BA single family\nAddress: 127 Chesapeake Way, Annapolis MD\nSq Ft: 2,840\nYear Built: 2004\nFeatures: hardwood floors, renovated kitchen,\ngranite counters, stainless appliances,\nmaster suite w/ soaking tub, 2-car garage,\nfenced backyard, community pool,\ntop-rated school district, 0.4mi to water",
     steps: [
-      { delay: 400, type: 'info', text: '→ Parsing property details...' },
-      { delay: 900, type: 'info', text: '→ Identifying headline features...' },
-      { delay: 1400, type: 'info', text: '→ Writing MLS-optimized copy...' },
-      { delay: 1900, type: 'success', text: '✓ Description generated' },
+      { delay: 800, type: 'info', text: 'Initializing specialized MD listing model...' },
+      { delay: 1800, type: 'info', text: 'Parsing property dimensions and amenity features...' },
+      { delay: 2900, type: 'info', text: 'Drafting localized MLS-optimized descriptive copy...' },
+      { delay: 4200, type: 'success', text: '✓ Generation complete. Ready for MLS.' },
     ],
-    output: () => `<span class="output-section">MLS LISTING DESCRIPTION</span>
-
-<span class="output-val">Welcome to 127 Chesapeake Way — where Annapolis living meets refined comfort. This stunning 4-bedroom, 3-bath home delivers 2,840 sq ft of beautifully updated space in one of the area's most sought-after communities.</span>
-
-<span class="output-key">Highlights:</span>
-<span class="output-val">› Renovated chef's kitchen with granite counters & stainless appliances
-› Rich hardwood floors throughout main level
-› Spa-inspired master suite with soaking tub
-› Oversized 2-car garage + fenced backyard
-› Walk to the water (0.4 mi) · Community pool · Top schools</span>
-
-<span class="output-key">Character count:</span> <span class="output-val">487 (MLS optimal: 400–600)</span>
-<span class="output-key">SEO keywords:</span> <span class="output-val">Annapolis, waterfront access, renovated, garage</span>`
+    output: [
+      '<span class="output-section">MLS LISTING DESCRIPTION</span>\n',
+      '<span class="output-val">Welcome to 127 Chesapeake Way — where Annapolis living meets refined comfort. This stunning 4-bedroom, 3-bath home delivers 2,840 sq ft of beautifully updated space in one of the area\'s most sought-after communities.</span>\n',
+      '<span class="output-key">Highlights:</span>',
+      '<span class="output-val">› Renovated chef\'s kitchen with granite counters & stainless appliances',
+      '› Rich hardwood floors throughout main level',
+      '› Spa-inspired master suite with soaking tub',
+      '› Oversized 2-car garage + fenced backyard',
+      '› Walk to the water (0.4 mi) · Community pool · Top schools</span>\n',
+      '<span class="output-key">Character count:</span> <span class="output-val">487 (MLS optimal: 400–600)</span>',
+      '<span class="output-key">SEO keywords:</span> <span class="output-val">Annapolis, waterfront access, renovated, garage</span>'
+    ]
   },
   contract: {
-    title: 'Contract Summarizer',
-    input: `Purchase Agreement — 127 Chesapeake Way
-Buyer: James & Laura Thornton
-Seller: Patricia Whitfield
-List Price: $649,000
-Offer Price: $632,500
-Earnest Money: $12,000 (due 3 days)
-Closing Date: April 28, 2026
-Inspection Contingency: 10 days
-Financing Contingency: 21 days (Conv. 20% down)
-Appraisal Contingency: Yes
-Inclusions: Refrigerator, washer/dryer, shed
-Exclusions: Dining room chandelier
-HOA Transfer Fee: Buyer pays`,
+    title: 'Contract Reader',
+    input: "Purchase Agreement — 127 Chesapeake Way\nBuyer: James & Laura Thornton\nSeller: Patricia Whitfield\nList Price: $649,000\nOffer Price: $632,500\nEarnest Money: $12,000 (due 3 days)\nClosing Date: April 28, 2026\nInspection: 10 days\nFinancing: 21 days (Conv. 20% down)\nAppraisal: Yes\nInclusions: Refrigerator, washer/dryer, shed\nExclusions: Dining room chandelier\nHOA Transfer Fee: Buyer pays",
     steps: [
-      { delay: 400, type: 'info', text: '→ Reading contract terms...' },
-      { delay: 900, type: 'info', text: '→ Extracting key dates & figures...' },
-      { delay: 1400, type: 'warn', text: '⚠ Scanning for red flags...' },
-      { delay: 1900, type: 'success', text: '✓ Summary complete' },
+      { delay: 800, type: 'info', text: 'Reading contract document payload...' },
+      { delay: 2000, type: 'info', text: 'Extracting financial terms, deadlines, and dates...' },
+      { delay: 3500, type: 'warn', text: '⚠ Analyzing clauses for standard MD contingency warnings...' },
+      { delay: 4800, type: 'success', text: '✓ Summary completed. Identified 3 flags.' },
     ],
-    output: () => `<span class="output-section">CONTRACT SUMMARY</span>
-
-<span class="output-key">Sale Price:       </span><span class="output-val">$632,500</span> <span class="output-key">(−$16,500 from list)</span>
-<span class="output-key">Earnest Money:    </span><span class="output-val">$12,000 — due within 3 days</span>
-<span class="output-key">Closing Date:     </span><span class="output-val">April 28, 2026</span>
-<span class="output-key">Inspection:       </span><span class="output-val">10-day contingency</span>
-<span class="output-key">Financing:        </span><span class="output-val">Conventional, 20% down, 21 days</span>
-<span class="output-key">Appraisal:        </span><span class="output-val">Contingency included</span>
-<span class="output-key">Inclusions:       </span><span class="output-val">Fridge, washer/dryer, shed</span>
-
-<span class="output-section">FLAGS</span>
-<span class="output-flag">⚠ Chandelier excluded — confirm removed before listing photos
-⚠ HOA transfer fee assigned to buyer — verify amount with HOA
-⚠ Earnest money deadline is 3 days — calendar immediately</span>`
+    output: [
+      '<span class="output-section">CONTRACT SUMMARY</span>\n',
+      '<span class="output-key">Sale Price:       </span><span class="output-val">$632,500</span> <span class="output-key">(−$16,500 from list)</span>',
+      '<span class="output-key">Earnest Money:    </span><span class="output-val">$12,000 — due within 3 days</span>',
+      '<span class="output-key">Closing Date:     </span><span class="output-val">April 28, 2026</span>',
+      '<span class="output-key">Inspection:       </span><span class="output-val">10-day contingency</span>',
+      '<span class="output-key">Financing:        </span><span class="output-val">Conventional, 20% down, 21 days</span>',
+      '<span class="output-key">Appraisal:        </span><span class="output-val">Contingency included</span>',
+      '<span class="output-key">Inclusions:       </span><span class="output-val">Fridge, washer/dryer, shed</span>\n',
+      '<span class="output-section">FLAGS</span>',
+      '<span class="output-flag">⚠ Chandelier excluded — confirm removed before listing photos',
+      '⚠ HOA transfer fee assigned to buyer — verify amount with HOA',
+      '⚠ Earnest money deadline is 3 days — calendar immediately</span>'
+    ]
   },
   comps: {
-    title: 'CMA Report Generator',
-    input: `Subject Property: 127 Chesapeake Way
-Sq Ft: 2,840 | 4BR/3BA | Built 2004
-
-COMPS:
-1. 88 Bay Ridge Ave — $658k, 2,910sf, 4/3, 2002, sold 45d ago
-2. 214 Ridgely Ave — $601k, 2,650sf, 4/2, 1998, sold 22d ago
-3. 55 Forest Dr — $675k, 3,100sf, 5/3, 2006, sold 67d ago
-4. 301 Tyler Ave — $619k, 2,780sf, 4/3, 2001, sold 15d ago
-5. 412 Spa Creek Ln — $688k, 2,900sf, 4/3, 2008, sold 30d ago`,
+    title: 'GenCMA Report',
+    input: "Subject Property: 127 Chesapeake Way\nSq Ft: 2,840 | 4BR/3BA | Built 2004\n\nCOMPS:\n1. 88 Bay Ridge Ave — $658k, 2,910sf, 4/3, 2002, sold 45d ago\n2. 214 Ridgely Ave — $601k, 2,650sf, 4/2, 1998, sold 22d ago\n3. 55 Forest Dr — $675k, 3,100sf, 5/3, 2006, sold 67d ago\n4. 301 Tyler Ave — $619k, 2,780sf, 4/3, 2001, sold 15d ago\n5. 412 Spa Creek Ln — $688k, 2,900sf, 4/3, 2008, sold 30d ago",
     steps: [
-      { delay: 400, type: 'info', text: '→ Normalizing comparable data...' },
-      { delay: 900, type: 'info', text: '→ Calculating price per sq ft...' },
-      { delay: 1400, type: 'info', text: '→ Adjusting for age & condition...' },
-      { delay: 1900, type: 'success', text: '✓ CMA complete' },
+      { delay: 900, type: 'info', text: 'Normalizing comparable property dataset...' },
+      { delay: 2100, type: 'info', text: 'Calculating market value per sq ft against variance...' },
+      { delay: 3500, type: 'info', text: 'Adjusting logic for subject property age & condition...' },
+      { delay: 4500, type: 'success', text: '✓ Algorithm completed valuation framework.' },
     ],
-    output: () => `<span class="output-section">COMPARATIVE MARKET ANALYSIS</span>
-
-<span class="output-key">Avg $/sqft (comps):  </span><span class="output-val">$228</span>
-<span class="output-key">Subject $/sqft est:  </span><span class="output-val">$225–$232</span>
-<span class="output-key">Avg DOM:             </span><span class="output-val">36 days</span>
-
-<span class="output-section">VALUATION RANGE</span>
-<span class="output-key">Low:           </span><span class="output-val">$631,000</span>
-<span class="output-key">Mid (rec):     </span><span class="output-val">$648,000</span>
-<span class="output-key">High:          </span><span class="output-val">$662,000</span>
-
-<span class="output-section">RECOMMENDATION</span>
-<span class="output-val">List at $648,000. Market is active (avg 36 DOM).
-Recent comps skew slightly above — pricing at $648k
-positions competitively while leaving negotiation room.</span>
-
-<span class="output-flag">⚠ Comp #3 (Forest Dr) excluded from avg — outlier sq ft</span>`
+    output: [
+      '<span class="output-section">COMPARATIVE MARKET ANALYSIS</span>\n',
+      '<span class="output-key">Avg $/sqft (comps):  </span><span class="output-val">$228</span>',
+      '<span class="output-key">Subject $/sqft est:  </span><span class="output-val">$225–$232</span>',
+      '<span class="output-key">Avg DOM:             </span><span class="output-val">36 days</span>\n',
+      '<span class="output-section">VALUATION RANGE</span>',
+      '<span class="output-key">Low:           </span><span class="output-val">$631,000</span>',
+      '<span class="output-key">Mid (rec):     </span><span class="output-val">$648,000</span>',
+      '<span class="output-key">High:          </span><span class="output-val">$662,000</span>\n',
+      '<span class="output-section">RECOMMENDATION</span>',
+      '<span class="output-val">List at $648,000. Market is active (avg 36 DOM).',
+      'Recent comps skew slightly above — pricing at $648k',
+      'positions competitively while leaving negotiation room.</span>\n',
+      '<span class="output-flag">⚠ Comp #3 (Forest Dr) excluded from avg — outlier sq ft</span>'
+    ]
   },
   disclosure: {
     title: 'Disclosure Review',
-    input: `SELLER DISCLOSURE — 127 Chesapeake Way
-
-Roof: Replaced 2019 (architectural shingle)
-HVAC: Original 2004 — serviced annually
-Water Heater: 2017
-Foundation: No known issues
-Basement: Minor water intrusion 2021, waterproofed
-Permits: Addition 2012 — permit status unknown
-HOA: Yes — $320/mo, no pending special assessments
-Previous Claims: Roof — hail damage, 2018 (paid out)
-Lead Paint: No (built 2004)
-Radon: Not tested`,
+    input: "SELLER DISCLOSURE — 127 Chesapeake Way\n\nRoof: Replaced 2019 (architectural shingle)\nHVAC: Original 2004 — serviced annually\nWater Heater: 2017\nFoundation: No known issues\nBasement: Minor water intrusion 2021, waterproofed\nPermits: Addition 2012 — permit status unknown\nHOA: Yes — $320/mo, no pending special assessments\nPrevious Claims: Roof — hail damage, 2018 (paid out)\nLead Paint: No (built 2004)\nRadon: Not tested",
     steps: [
-      { delay: 400, type: 'info', text: '→ Parsing disclosure form...' },
-      { delay: 900, type: 'warn', text: '⚠ Checking for red flags...' },
-      { delay: 1400, type: 'warn', text: '⚠ Cross-referencing age of systems...' },
-      { delay: 1900, type: 'success', text: '✓ Review complete — 3 items flagged' },
+      { delay: 800, type: 'info', text: 'Parsing raw seller disclosure data points...' },
+      { delay: 2200, type: 'warn', text: '⚠ Validating system lifecycle ages against risk registry...' },
+      { delay: 3600, type: 'warn', text: '⚠ Detecting permit compliance uncertainty...' },
+      { delay: 4700, type: 'success', text: '✓ Risk analysis finalized — flagged 4 action items.' },
     ],
-    output: () => `<span class="output-section">DISCLOSURE REVIEW</span>
-
-<span class="output-key">Systems Summary:</span>
-<span class="output-val">Roof:        2019 ✓ (good condition)
-Water Htr:   2017 ✓
-HVAC:        2004 ⚠ (22 years — near end of life)</span>
-
-<span class="output-section">FLAGS — ACTION REQUIRED</span>
-<span class="output-flag">🔴 HVAC is original (2004) — request service records,
-   factor replacement (~$8–12k) into negotiation
-
-🔴 2012 addition permit status unknown — pull permit
-   history from county before closing
-
-🟡 Basement water intrusion (2021) — confirm
-   waterproofing warranty transferable to buyer
-
-🟡 Radon not tested — recommend buyer test
-   during inspection period</span>
-
-<span class="output-key">Clean items:</span> <span class="output-val">Roof, water heater, HOA, lead paint, foundation</span>`
+    output: [
+      '<span class="output-section">DISCLOSURE REVIEW</span>\n',
+      '<span class="output-key">Systems Summary:</span>',
+      '<span class="output-val">Roof:        2019 ✓ (good condition)',
+      'Water Htr:   2017 ✓',
+      'HVAC:        2004 ⚠ (22 years — near end of life)</span>\n',
+      '<span class="output-section">FLAGS — ACTION REQUIRED</span>',
+      '<span class="output-flag">🔴 HVAC is original (2004) — request service records,',
+      '   factor replacement (~$8–12k) into negotiation\n',
+      '🔴 2012 addition permit status unknown — pull permit',
+      '   history from county before closing\n',
+      '🟡 Basement water intrusion (2021) — confirm',
+      '   waterproofing warranty transferable to buyer\n',
+      '🟡 Radon not tested — recommend buyer test',
+      '   during inspection period</span>\n',
+      '<span class="output-key">Clean items:</span> <span class="output-val">Roof, water heater, HOA, lead paint, foundation</span>'
+    ]
   },
   followup: {
-    title: 'Client Follow-Up Generator',
-    input: `Client: James & Laura Thornton
-Event: Showed 127 Chesapeake Way today
-Notes: They loved the kitchen and backyard.
-Concerned about the HVAC age.
-Have 2 kids, want good schools.
-Currently renting, lease ends June 1.
-Budget: up to $670k
-Next step: Want to see 2-3 more options`,
+    title: 'Client Follow-Up',
+    input: "Client: James & Laura Thornton\nEvent: Showed 127 Chesapeake Way today\nNotes: They loved the kitchen and backyard.\nConcerned about the HVAC age.\nHave 2 kids, want good schools.\nCurrently renting, lease ends June 1.\nBudget: up to $670k\nNext step: Want to see 2-3 more options",
     steps: [
-      { delay: 400, type: 'info', text: '→ Reading showing notes...' },
-      { delay: 900, type: 'info', text: '→ Identifying key client priorities...' },
-      { delay: 1400, type: 'info', text: '→ Drafting personalized email...' },
-      { delay: 1900, type: 'success', text: '✓ Follow-up email ready' },
+      { delay: 700, type: 'info', text: 'Loading proprietary CRM context vector...' },
+      { delay: 1800, type: 'info', text: 'Extracting client sentiment triggers (schools, timelines)...' },
+      { delay: 2800, type: 'info', text: 'Synthesizing response utilizing the user tone persona...' },
+      { delay: 4000, type: 'success', text: '✓ Email drafted and optimized for high response rate.' },
     ],
-    output: () => `<span class="output-section">FOLLOW-UP EMAIL</span>
-
-<span class="output-key">Subject:</span> <span class="output-val">Great seeing you today — next steps for Chesapeake Way</span>
-
-<span class="output-val">Hi James and Laura,
-
-It was great walking through 127 Chesapeake Way with you today! That kitchen really is something — and the backyard is perfect for the kids.
-
-Regarding the HVAC — totally valid concern. I'll get the service history from the seller and if needed, we can factor replacement cost into our offer. It's a negotiating point, not a dealbreaker.
-
-I've already pulled 3 more listings that match what you're looking for — updated systems, top school district, and all under $670k. I'd love to get you in to see them before your lease wraps in June.
-
-Are you free this weekend?</span>
-
-<span class="output-key">Tone:</span> <span class="output-val">Warm, professional</span>
-<span class="output-key">Word count:</span> <span class="output-val">142</span>`
+    output: [
+      '<span class="output-section">FOLLOW-UP EMAIL</span>\n',
+      '<span class="output-key">Subject:</span> <span class="output-val">Great seeing you today — next steps for Chesapeake Way</span>\n',
+      '<span class="output-val">Hi James and Laura,\n',
+      'It was great walking through 127 Chesapeake Way with you today! That kitchen really is something — and the backyard is perfect for the kids.\n',
+      'Regarding the HVAC — totally valid concern. I\'ll get the service history from the seller and if needed, we can factor replacement cost into our offer. It\'s a negotiating point, not a dealbreaker.\n',
+      'I\'ve already pulled 3 more listings that match what you\'re looking for — updated systems, top school district, and all under $670k. I\'d love to get you in to see them before your lease wraps in June.\n',
+      'Are you free this weekend?</span>\n',
+      '<span class="output-key">Tone:</span> <span class="output-val">Warm, professional</span>',
+      '<span class="output-key">Word count:</span> <span class="output-val">142</span>'
+    ]
   }
 };
 
 let currentSkill = 'listing';
+let isProcessing = false;
 
 function selectSkill(skill) {
+  if (isProcessing) return;
   currentSkill = skill;
   document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
-  const tab = document.getElementById('tab-' + skill);
-  if (tab) tab.classList.add('active');
+  document.getElementById('tab-' + skill).classList.add('active');
   const d = demos[skill];
   document.getElementById('demo-title').textContent = d.title;
-  document.getElementById('demo-input').textContent = d.input;
-  document.getElementById('demo-output').innerHTML = '<span style="color:#475569">Output will appear here after you click Run →</span>';
+  document.getElementById('demo-input').className = 'demo-input typing-cursor';
+  document.getElementById('demo-input').textContent = '';
+  document.getElementById('demo-output').innerHTML = '<span style="color:var(--muted)">Awaiting input processing... Click Start Processing above.</span>';
   document.getElementById('demo-log').innerHTML = '';
+  document.getElementById('demo-copy-btn').style.display = 'none';
+  document.getElementById('demo-progress').style.width = '0%';
+  
+  // Typing effect
+  let i = 0;
+  const inputEl = document.getElementById('demo-input');
+  const txt = d.input;
+  isProcessing = true;
+  document.getElementById('demo-run-btn').disabled = true;
+  
+  function typeWriter() {
+    if (i < txt.length) {
+      inputEl.textContent += txt.charAt(i);
+      i++;
+      setTimeout(typeWriter, 15);
+    } else {
+      inputEl.classList.remove('typing-cursor');
+      isProcessing = false;
+      document.getElementById('demo-run-btn').disabled = false;
+    }
+  }
+  typeWriter();
 }
 
-function runDemo() {
-  const d = demos[currentSkill];
+function addLog(text, type) {
   const logEl = document.getElementById('demo-log');
+  const line = document.createElement('div');
+  line.className = 'log-line log-' + type;
+  line.textContent = text;
+  logEl.appendChild(line);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+async function runDemo() {
+  if (isProcessing) return;
+  isProcessing = true;
+  const btn = document.getElementById('demo-run-btn');
+  const prog = document.getElementById('demo-progress');
   const outEl = document.getElementById('demo-output');
-  logEl.innerHTML = '';
-  outEl.innerHTML = '<span style="color:#475569">Processing...</span>';
-  d.steps.forEach(step => {
-    setTimeout(() => {
-      const line = document.createElement('div');
-      line.className = 'log-line log-' + step.type;
-      line.textContent = step.text;
-      logEl.appendChild(line);
-      logEl.scrollTop = logEl.scrollHeight;
-    }, step.delay);
-  });
-  const lastDelay = d.steps[d.steps.length - 1].delay + 300;
-  setTimeout(() => { outEl.innerHTML = d.output(); }, lastDelay);
-}
+  const logEl = document.getElementById('demo-log');
 
-// File upload
-function handleDragOver(e) { e.preventDefault(); document.getElementById('upload-box').classList.add('drag-over'); }
-function handleDragLeave() { document.getElementById('upload-box').classList.remove('drag-over'); }
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('upload-box').classList.remove('drag-over');
-  addFiles(Array.from(e.dataTransfer.files));
-}
-function handleFileSelect(e) { addFiles(Array.from(e.target.files)); }
-const fileMap = new Map();
-function addFiles(files) {
-  files.forEach(f => { if (!fileMap.has(f.name)) fileMap.set(f.name, { file: f, status: 'ready' }); });
-  renderFiles();
-}
-function renderFiles() {
-  const list = document.getElementById('file-list');
-  const btn = document.getElementById('process-btn');
-  if (fileMap.size === 0) { list.innerHTML = ''; btn.style.display = 'none'; return; }
-  btn.style.display = 'block';
-  list.innerHTML = '';
-  fileMap.forEach((data, name) => {
-    const el = document.createElement('div');
-    el.className = 'file-item';
-    const statusClass = { ready: 'status-ready', processing: 'status-processing', done: 'status-done' }[data.status];
-    const statusText = { ready: 'Ready', processing: 'Processing...', done: 'Done ✓' }[data.status];
-    const icon = name.endsWith('.pdf') ? '📄' : name.endsWith('.xlsx') ? '📊' : name.endsWith('.docx') ? '📝' : '📄';
-    el.innerHTML = `<div class="file-item-left"><span>${icon}</span><span>${name}</span></div><span class="file-status ${statusClass}">${statusText}</span>`;
-    list.appendChild(el);
-  });
-}
-function processAll() {
-  const btn = document.getElementById('process-btn');
-  btn.textContent = 'Processing...';
   btn.disabled = true;
-  const names = Array.from(fileMap.keys());
-  names.forEach((name, i) => {
-    setTimeout(() => { fileMap.get(name).status = 'processing'; renderFiles(); }, i * 600);
-    setTimeout(() => { fileMap.get(name).status = 'done'; renderFiles(); if (i === names.length - 1) { btn.textContent = '✓ All done — Export to Excel'; btn.disabled = false; } }, i * 600 + 1200);
+  btn.textContent = 'Processing...';
+  prog.style.width = '0%';
+  logEl.innerHTML = '';
+  outEl.innerHTML = '<span class="typing-cursor" style="color:#818cf8">Sending to Claude...</span>';
+  document.getElementById('demo-copy-btn').style.display = 'none';
+
+  // Animate progress bar while waiting
+  let p = 0;
+  const pInterval = setInterval(() => {
+    if (p < 85) p += Math.random() * 4;
+    prog.style.width = p + '%';
+  }, 300);
+
+  const input = document.getElementById('demo-input').textContent;
+  addLog('→ Connecting to Claude API...', 'info');
+
+  try {
+    addLog('→ Sending ' + currentSkill + ' request...', 'info');
+    const res = await fetch('/api/process', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ skill: currentSkill, input })
+    });
+
+    const data = await res.json();
+    clearInterval(pInterval);
+    prog.style.width = '100%';
+
+    if (!res.ok || data.error) {
+      addLog('✗ Error: ' + (data.error || 'Unknown error'), 'warn');
+      outEl.innerHTML = '<span style="color:var(--red)">Error: ' + (data.error || 'Request failed') + '</span>';
+    } else {
+      addLog('✓ Claude responded successfully', 'success');
+      outEl.innerHTML = '';
+      // Stream output line-by-line
+      const lines = data.result.split('\n');
+      let i = 0;
+      function renderLine() {
+        if (i < lines.length) {
+          const div = document.createElement('div');
+          div.textContent = lines[i];
+          div.style.animation = 'fade-in 0.2s forwards';
+          outEl.appendChild(div);
+          outEl.scrollTop = outEl.scrollHeight;
+          i++;
+          setTimeout(renderLine, 80);
+        } else {
+          document.getElementById('demo-copy-btn').style.display = 'block';
+          btn.textContent = '▶ Run Again';
+          btn.disabled = false;
+          isProcessing = false;
+          setTimeout(() => { prog.style.width = '0%'; }, 1500);
+        }
+      }
+      renderLine();
+    }
+  } catch (err) {
+    clearInterval(pInterval);
+    addLog('✗ Network error: ' + err.message, 'warn');
+    outEl.innerHTML = '<span style="color:var(--red)">Could not reach API. Make sure you\'re on the Vercel deployment.</span>';
+    btn.textContent = '▶ Run Again';
+    btn.disabled = false;
+    isProcessing = false;
+  }
+}
+
+function copyOutput() {
+  const text = document.getElementById('demo-output').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('demo-copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy Output'; }, 2000);
   });
 }
 
-// Stats counter
+// Stats & Anim observer
 function animateStats() {
   document.querySelectorAll('.stat-num').forEach(el => {
     const target = +el.dataset.target;
@@ -608,12 +667,23 @@ function animateStats() {
       count = Math.min(count + step, target);
       el.textContent = prefix + Math.round(count) + suffix;
       if (count >= target) clearInterval(timer);
-    }, 30);
+    }, 40);
   });
 }
-const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { animateStats(); observer.disconnect(); } }); }, { threshold: 0.3 });
-const statsEl = document.querySelector('.stats');
-if (statsEl) observer.observe(statsEl);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in-view');
+      if (e.target.classList.contains('stats') && !e.target.dataset.animated) {
+        animateStats();
+        e.target.dataset.animated = 'true';
+      }
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.animate-on-scroll, .stats').forEach(el => observer.observe(el));
 
 // Init
 selectSkill('listing');
