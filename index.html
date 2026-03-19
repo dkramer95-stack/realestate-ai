@@ -43,7 +43,7 @@
   .hero { max-width: 1000px; margin: 0 auto; padding: 8rem 2rem 6rem; text-align: center; }
   .hero-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(79,70,229,.1); border: 1px solid rgba(79,70,229,.3); color: #818cf8; padding: .5rem 1.2rem; border-radius: 100px; font-size: .85rem; font-weight: 600; margin-bottom: 2rem; box-shadow: 0 0 20px rgba(79,70,229,0.2); }
   .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1px; }
-  .hero h1 em { font-style: normal; background: linear-gradient(135deg, #60a5fa, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero h1 em { font-style: normal; background: linear-gradient(135deg, #60a5fa, #818cf8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .hero p { font-size: 1.25rem; color: var(--muted); max-width: 650px; margin: 0 auto 3rem; line-height: 1.7; }
   .hero-buttons { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
   .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: white; padding: 1rem 2.5rem; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all .3s; border: none; cursor: pointer; box-shadow: 0 8px 25px rgba(79,70,229,0.3); }
@@ -180,6 +180,7 @@
     .stats { gap: 2rem; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -272,7 +273,9 @@
         <div class="demo-toolbar">
           <span class="demo-title" id="demo-title">Listing Optimizer</span>
           <div class="demo-actions">
-            <button class="demo-copy-btn" id="demo-copy-btn" onclick="copyOutput()">Copy Output</button>
+            <button class="demo-copy-btn" id="demo-pdf-btn" onclick="exportPDF()" style="display:none;">↓ PDF</button>
+            <button class="demo-copy-btn" id="demo-docx-btn" onclick="exportDOCX()" style="display:none;">↓ Word</button>
+            <button class="demo-copy-btn" id="demo-copy-btn" onclick="copyOutput()">Copy</button>
             <button class="demo-run-btn" id="demo-run-btn" onclick="runDemo()">▶ Start Processing</button>
           </div>
         </div>
@@ -539,6 +542,8 @@ function selectSkill(skill) {
   document.getElementById('demo-output').innerHTML = '<span style="color:var(--muted)">Awaiting input processing... Click Start Processing above.</span>';
   document.getElementById('demo-log').innerHTML = '';
   document.getElementById('demo-copy-btn').style.display = 'none';
+  document.getElementById('demo-pdf-btn').style.display = 'none';
+  document.getElementById('demo-docx-btn').style.display = 'none';
   document.getElementById('demo-progress').style.width = '0%';
   
   // Typing effect
@@ -583,9 +588,11 @@ async function runDemo() {
   btn.textContent = 'Processing...';
   prog.style.width = '0%';
   logEl.innerHTML = '';
-  outEl.innerHTML = '<span class="typing-cursor" style="color:#818cf8">Sending to Claude...</span>';
+  outEl.innerHTML = '<span class="typing-cursor" style="color:#818cf8">Analyzing...</span>';
   document.getElementById('demo-copy-btn').style.display = 'none';
-
+  document.getElementById('demo-pdf-btn').style.display = 'none';
+  document.getElementById('demo-docx-btn').style.display = 'none';
+  
   // Animate progress bar while waiting
   let p = 0;
   const pInterval = setInterval(() => {
@@ -627,11 +634,13 @@ async function runDemo() {
           i++;
           setTimeout(renderLine, 80);
         } else {
-          document.getElementById('demo-copy-btn').style.display = 'block';
+          isProcessing = false;
           btn.textContent = '▶ Run Again';
           btn.disabled = false;
-          isProcessing = false;
-          setTimeout(() => { prog.style.width = '0%'; }, 1500);
+          document.getElementById('demo-copy-btn').style.display = 'block';
+          document.getElementById('demo-pdf-btn').style.display = 'block';
+          document.getElementById('demo-docx-btn').style.display = 'block';
+          setTimeout(() => { prog.style.width = '0%'; }, 1000);
         }
       }
       renderLine();
@@ -651,8 +660,34 @@ function copyOutput() {
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('demo-copy-btn');
     btn.textContent = 'Copied!';
-    setTimeout(() => { btn.textContent = 'Copy Output'; }, 2000);
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
   });
+}
+
+function exportPDF() {
+  const element = document.getElementById('demo-output');
+  const opt = {
+    margin:       [0.5, 0.5, 0.5, 0.5],
+    filename:     'RealtyAI_Output.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, backgroundColor: '#05070a' },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
+}
+
+function exportDOCX() {
+  const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>RealtyAI Output</title><style>body { font-family: 'Courier New', Courier, monospace; color: #333; background: #fff; padding: 20px; }</style></head><body>";
+  const footer = "</body></html>";
+  const sourceHTML = header + document.getElementById('demo-output').innerHTML + footer;
+  
+  const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+  const fileDownload = document.createElement("a");
+  document.body.appendChild(fileDownload);
+  fileDownload.href = source;
+  fileDownload.download = 'RealtyAI_Output.doc';
+  fileDownload.click();
+  document.body.removeChild(fileDownload);
 }
 
 // Stats & Anim observer
