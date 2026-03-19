@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RealtyAI — Paperwork handled. Deals closed.</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%232563eb%22/><text x=%2250%22 y=%2268%22 font-size=%2250%22 font-family=%22sans-serif%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22>R</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -353,7 +354,7 @@
         <li>Export to PDF & TXT</li>
         <li>Email support</li>
       </ul>
-      <button class="price-btn price-btn-outline">Start 7-day trial</button>
+      <a href="https://buy.stripe.com/test_starter" class="price-btn price-btn-outline" style="display:block; text-align:center; text-decoration:none; box-sizing:border-box;">Start 7-day trial</a>
     </div>
     <div class="price-card featured animate-on-scroll">
       <div class="featured-badge">MOST POPULAR</div>
@@ -367,7 +368,7 @@
         <li>Batch processing pipeline</li>
         <li>Priority queue & chat support</li>
       </ul>
-      <button class="price-btn price-btn-fill">Start Pro — $99/mo</button>
+      <a href="https://buy.stripe.com/test_pro" class="price-btn price-btn-fill" style="display:block; text-align:center; text-decoration:none; box-sizing:border-box;">Start Pro — $99/mo</a>
     </div>
     <div class="price-card animate-on-scroll">
       <div class="price-name">Team / Brokerage</div>
@@ -380,7 +381,7 @@
         <li>Dedicated account manager</li>
         <li>Custom branding on reports</li>
       </ul>
-      <button class="price-btn price-btn-outline">Contact Sales</button>
+      <a href="https://buy.stripe.com/test_team" class="price-btn price-btn-outline" style="display:block; text-align:center; text-decoration:none; box-sizing:border-box;">Contact Sales</a>
     </div>
   </div>
 </section>
@@ -390,19 +391,28 @@
     <div class="cta-content">
       <h2>Join the RealtyAI Private Beta</h2>
       <p>We are currently onboarding top-producing agents in the DMV area. Secure your spot on the waitlist to get early access and an exclusive lifetime pricing lock.</p>
-      <div class="waitlist-form">
-        <div class="form-group"><input type="text" placeholder="Full Name (e.g., Emily Realtor)" required></div>
-        <div class="form-group"><input type="email" placeholder="Work Email Address" required></div>
-        <button class="waitlist-btn">Get early access</button>
-      </div>
+      <form class="waitlist-form" action="https://formspree.io/f/FORM_ID" method="POST">
+        <div class="form-group"><input type="text" name="name" placeholder="Full Name (e.g., Emily Realtor)" required></div>
+        <div class="form-group"><input type="email" name="email" placeholder="Work Email Address" required></div>
+        <button type="submit" class="waitlist-btn">Get early access</button>
+      </form>
     </div>
-    <div class="calendly-placeholder">
-      <p>Ready to see your specific workflow optimized?</p>
-      <a href="#" class="calendly-btn">📅 Book a 15-Minute Demo</a>
-      <span style="color:var(--muted);font-size:0.85rem">Select a time on our calendar</span>
+    <div class="calendly-placeholder" style="padding: 0; background: transparent; border: none; height: 500px;">
+      <!-- Calendly inline widget begin -->
+      <div class="calendly-inline-widget" data-url="https://calendly.com/dkramer95?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:100%;width:100%;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <!-- Calendly inline widget end -->
     </div>
   </div>
 </section>
+
+<footer>
+  <p>RealtyAI Operations · Built for Annapolis Real Estate Agents</p>
+  <p style="margin-top: 0.8rem; font-size: 0.85rem;">
+    <a href="mailto:dkramer95@gmail.com">dkramer95@gmail.com</a> · 
+    <a href="https://github.com/dkramer95-stack/realestate-ai" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+  </p>
+</footer>
 
 <script>
 const demos = {
